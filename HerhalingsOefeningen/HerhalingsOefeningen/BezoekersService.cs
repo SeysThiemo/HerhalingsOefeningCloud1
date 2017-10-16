@@ -44,7 +44,45 @@ namespace HerhalingsOefeningen
             {
                 return req.CreateResponse(HttpStatusCode.InternalServerError);
             }
-             
+
+        }
+        [FunctionName("GetBezoekersOpDag")]
+        public static async Task<HttpResponseMessage> GetBezoekersOpDag([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "visitors/{day}")]HttpRequestMessage req, string day, TraceWriter log)
+        {
+            try
+            {
+                List<Visit> days = new List<Visit>();
+
+                using (SqlConnection connection = new SqlConnection(CONNECTIONSTRING))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand())
+                    {
+                        command.Connection = connection;
+                        string sql = "SELECT * FROM Bezoekers WHERE DagVanDeWeek = @day";
+                        command.CommandText = sql;
+                        command.Parameters.AddWithValue("@day", day);
+                        SqlDataReader reader = command.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            Visit v = new Visit();
+                            v.AantalBezoekers = int.Parse(reader["AantalBezoekers"].ToString());
+                            v.Dag = day;
+                            v.Tijdstip = int.Parse(reader["AantalBezoekers"].ToString());
+                            days.Add(v);
+                        }
+                    }
+                }
+
+                // Fetching the name from the path parameter in the request URL
+                return req.CreateResponse(HttpStatusCode.OK, days);
+
+            }
+
+            catch (Exception ex)
+            {
+                return req.CreateResponse(HttpStatusCode.InternalServerError);
+            }
         }
     }
 }
