@@ -42,7 +42,7 @@ namespace HerhalingsOefeningen
             }
             catch (Exception ex)
             {
-                return req.CreateResponse(HttpStatusCode.InternalServerError);
+                return req.CreateResponse(HttpStatusCode.NotFound,ex);
             }
 
         }
@@ -68,7 +68,7 @@ namespace HerhalingsOefeningen
                             Visit v = new Visit();
                             v.AantalBezoekers = int.Parse(reader["AantalBezoekers"].ToString());
                             v.Dag = day;
-                            v.Tijdstip = int.Parse(reader["AantalBezoekers"].ToString());
+                            v.Tijdstip = int.Parse(reader["TijdstipDag"].ToString());
                             days.Add(v);
                         }
                     }
@@ -81,7 +81,7 @@ namespace HerhalingsOefeningen
 
             catch (Exception ex)
             {
-                return req.CreateResponse(HttpStatusCode.InternalServerError);
+                return req.CreateResponse(HttpStatusCode.InternalServerError,ex);
             }
         }
     }
