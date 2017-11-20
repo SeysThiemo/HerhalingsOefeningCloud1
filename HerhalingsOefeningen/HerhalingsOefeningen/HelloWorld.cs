@@ -10,7 +10,7 @@ namespace HerhalingsOefeningen
     public static class HelloWorld
     {
         [FunctionName("HelloWorld")]
-        public static HttpResponseMessage Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "HttpTriggerCSharp/name/{name}")]HttpRequestMessage req, string name, TraceWriter log)
+        public static HttpResponseMessage HelloWorldStart([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "HttpTriggerCSharp/name/{name}")]HttpRequestMessage req, string name, TraceWriter log)
         {
             log.Info("C# HTTP trigger function processed a request.");
 
