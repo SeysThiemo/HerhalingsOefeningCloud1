@@ -36,8 +36,10 @@ namespace HerhalingsOefeningen
                         {
                             days.Add(reader["DagVanDeWeek"].ToString());
                         }
+                        connection.Close();
                     }
                 }
+              
                 return req.CreateResponse(HttpStatusCode.OK, days);
             }
             catch (Exception ex)
@@ -71,6 +73,7 @@ namespace HerhalingsOefeningen
                             v.Tijdstip = int.Parse(reader["TijdstipDag"].ToString());
                             days.Add(v);
                         }
+                        connection.Close();
                     }
                 }
 
