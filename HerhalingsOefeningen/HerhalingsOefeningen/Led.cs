@@ -19,7 +19,7 @@ namespace HerhalingsOefeningen
         [FunctionName("Led")]
         public static HttpResponseMessage LedRun([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "send/{device}/{sensor}/{status}")]HttpRequestMessage req, string device, string sensor, string status, TraceWriter log)
         {
-            string connectionString = Environment.GetEnvironmentVariable("IotHub");
+            string connectionString = Environment.GetEnvironmentVariable("IoTHub");
             ServiceClient serviceClient;
             serviceClient = ServiceClient.CreateFromConnectionString(connectionString);
             PiMessage pim = new PiMessage()
