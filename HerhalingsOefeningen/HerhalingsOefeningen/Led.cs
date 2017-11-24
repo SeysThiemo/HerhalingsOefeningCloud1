@@ -17,7 +17,7 @@ namespace HerhalingsOefeningen
     public static class Led
     {
         [FunctionName("Led")]
-        public static HttpResponseMessage LedRun([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "send/{device}/{sensor}/{status}")]HttpRequestMessage req, string device, string sensor, string status, TraceWriter log)
+        public static HttpResponseMessage LedRun([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "send/{device}/{sensor}/{status}")]HttpRequestMessage req, string device, string sensor, string status, TraceWriter log)
         {
             string connectionString = Environment.GetEnvironmentVariable("IoTHub");
             ServiceClient serviceClient;
