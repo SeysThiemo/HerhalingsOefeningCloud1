@@ -12,26 +12,26 @@ using System.Text;
 
 namespace HerhalingsOefeningen
 {
-    }
-}
+
 
     public static class Led
-{
-    [FunctionName("Led")]
-    public static HttpResponseMessage LedRun([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "send/{device}/{sensor}/{status}")]HttpRequestMessage req, string device, string sensor, string status, TraceWriter log)
     {
-        string connectionString = Environment.GetEnvironmentVariable("IotHub");
-        ServiceClient serviceClient;
-        serviceClient = ServiceClient.CreateFromConnectionString(connectionString);
-        PiMessage pim = new PiMessage()
+        [FunctionName("Led")]
+        public static HttpResponseMessage LedRun([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "send/{device}/{sensor}/{status}")]HttpRequestMessage req, string device, string sensor, string status, TraceWriter log)
         {
-            Sensor = sensor,
-            Command = status
-        };
-        var json = JsonConvert.SerializeObject(pim);
-        var bytes = Encoding.ASCII.GetBytes(json);
-        Message message = new Message(bytes);
-        serviceClient.SendAsync(device, message);
-        return req.CreateResponse(HttpStatusCode.OK);
+            string connectionString = Environment.GetEnvironmentVariable("IotHub");
+            ServiceClient serviceClient;
+            serviceClient = ServiceClient.CreateFromConnectionString(connectionString);
+            PiMessage pim = new PiMessage()
+            {
+                Sensor = sensor,
+                Command = status
+            };
+            var json = JsonConvert.SerializeObject(pim);
+            var bytes = Encoding.ASCII.GetBytes(json);
+            Message message = new Message(bytes);
+            serviceClient.SendAsync(device, message);
+            return req.CreateResponse(HttpStatusCode.OK);
+        }
     }
 }
