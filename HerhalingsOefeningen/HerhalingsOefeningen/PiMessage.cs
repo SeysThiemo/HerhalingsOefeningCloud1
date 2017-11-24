@@ -8,7 +8,7 @@ namespace HerhalingsOefeningen
 {
     class PiMessage
     {
-        public int Sensor { get; set; }
-        public int Command { get; set; }
+        public String Sensor { get; set; }
+        public String Command { get; set; }
     }
 }
